@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import styled from "styled-components";
+import ImageDisplayer from "./components/ImageDisplayer";
 
 function App() {
+  const imageDisplayers = Array(10).fill(null); // Create an array of length 8
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HomeWrapper>
+      {imageDisplayers.map((_, index) => (
+        <ImageDisplayer key={index} />
+      ))}
+    </HomeWrapper>
   );
 }
 
 export default App;
+
+const HomeWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+`;
