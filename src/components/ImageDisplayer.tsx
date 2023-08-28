@@ -1,14 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import imgSample from "./ts+react.jpeg";
 
-const ImageDisplayer = () => {
+
+interface imagesProps {
+  imagesResults: string
+  likes: number;
+  views: number;
+}
+
+const ImageDisplayer:React.FC<imagesProps> = ({imagesResults,views, likes}) => {
   return (
     <ImageDisplayerWrapper>
       <div className="container">
-        <img src={imgSample} alt="img" />
-        <p>33359 👍</p>
-        <p>980393 👀</p>
+        <img src={imagesResults} alt="img" />
+        <p>{likes} 👍</p>
+        <p>{views} 👀</p>
         <div className="buttonArea">
           <button>View Full Size</button>
         </div>

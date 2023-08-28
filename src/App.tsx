@@ -1,24 +1,35 @@
 import React from "react";
 import styled from "styled-components";
 import ImageDisplayer from "./components/ImageDisplayer";
+import SearchBar from "./components/SearchBar";
+import axios from "axios";
+import { api_key } from "./modules/modules";
+import SearchAndDsiplayData from "./components/SearchAndDsiplayData";
+
+interface DataProps {
+  id: number;
+  downloads: number;
+  likes: number;
+  views: number;
+  largeImageURL: string; //*original name largeImageURL
+  downloadLink: string; //* original name previewURL
+}
 
 function App() {
-  const imageDisplayers = Array(10).fill(null); // Create an array of length 8
+ 
 
   return (
     <HomeWrapper>
-      {imageDisplayers.map((_, index) => (
-        <ImageDisplayer key={index} />
-      ))}
+     <SearchAndDsiplayData />
     </HomeWrapper>
   );
 }
-
-export default App;
 
 const HomeWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column;
 `;
+
+export default App;
