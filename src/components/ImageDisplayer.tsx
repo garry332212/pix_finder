@@ -8,6 +8,7 @@ interface imagesProps {
   views: number;
 }
 
+
 const ImageDisplayer:React.FC<imagesProps> = ({imagesResults,views, likes}) => {
   return (
     <ImageDisplayerWrapper>
@@ -39,6 +40,7 @@ const ImageDisplayerWrapper = styled.div`
     border-radius: 5px;
     padding: 5px;
     border: 1px solid grey;
+    box-shadow: 1px 1px 12px -1px whitesmoke;
     
 
     img {
