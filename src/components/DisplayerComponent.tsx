@@ -2,8 +2,8 @@ import React from "react";
 import SearchBar from "./SearchBar";
 import ImageDisplayer from "./ImageDisplayer";
 import axios from "axios";
-import { DataProps, endpoint } from "../modules/modules";
-import {DisplayerWrapper} from "../styles/Displayer.modules"
+import { DataProps, endpoint, quickSearchTags } from "../modules/modules";
+import { DisplayerWrapper } from "../styles/Displayer.modules";
 import Header from "./Header";
 
 const DisplayerComponent = () => {
@@ -11,20 +11,28 @@ const DisplayerComponent = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [currentSearchTerm, setCurrentSearchTerm] = React.useState<string>("");
 
+
   //*this function will display random images from the api by default but can conditonally search as well
   const fetchImages = async (page: number, searchTerm: string) => {
     const query = searchTerm ? `&q=${searchTerm}` : ""; // Add search term to query if provided
-    const url = `${endpoint}&per_page=${14}&page=${page}${query}`;
+    const url = `${endpoint}&per_page=${15}&page=${page}${query}`;
     const response = await axios.get(url);
     const results = response.data.hits;
 
     setImages(results);
+    console.log(results);
   };
 
   const onSubmitHandler = async (searchedTerm: string) => {
     fetchImages(1, searchedTerm); // Pass the search query to fetchImages and start from the first page
     setCurrentSearchTerm(searchedTerm); // Update the current search term
     setCurrentPage(1);
+  };
+
+  //search by Tags
+  const handleTagClick = (tagText: string) => {
+
+    onSubmitHandler(tagText); // Perform a search when tag is clicked
   };
 
   React.useEffect(() => {
@@ -44,10 +52,15 @@ const DisplayerComponent = () => {
       setCurrentPage((prevPage) => prevPage - 1);
     }
   };
+
+  //randomly change images for the cover based on tags and search
+  const randomImage = Math.floor(Math.random() * isImages.length);
+  const backgroundImage = isImages.length > 0 ? `url(${isImages[randomImage].largeImageURL})` : "";
+  
   return (
     <DisplayerWrapper>
       <div className="header">
-        <Header />
+        <Header backgroundImage={backgroundImage}/>
       </div>
 
       <div className="search">
@@ -56,14 +69,25 @@ const DisplayerComponent = () => {
       </div>
 
       <div className="listData">
-        {isImages.map((pics, index) => (
-          <ImageDisplayer
-            key={`${pics.id}_${currentPage}_${index}`} // Using a unique key
-            imagesResults={pics.largeImageURL}
-            likes={pics.likes}
-            views={pics.views}
-          />
-        ))}
+        <div className="tags">
+          {quickSearchTags.map((tag, index) => (
+            <span key={index} onClick={() => handleTagClick(tag)}>
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <div className="imagesCard">
+          {isImages.map((pics, index) => (
+            <ImageDisplayer
+              key={`${pics.id}_${currentPage}_${index}`} // Using a unique key
+              imagesResults={pics.largeImageURL}
+              likes={pics.likes}
+              views={pics.views}
+              viewFullSize={pics.largeImageURL}
+            />
+          ))}
+        </div>
 
         <div className="buttons">
           <button onClick={nextPage}>Next</button>
@@ -76,5 +100,3 @@ const DisplayerComponent = () => {
 };
 
 export default DisplayerComponent;
-
-

@@ -1,6 +1,13 @@
 import styled from "styled-components";
+import {
+  BoxShadow,
+  colors,
+  flexCenter,
+  flexCenterSpaceBetwn,
+} from "../modules/galobal_styles";
 
 export const DisplayerWrapper = styled.div`
+  transition: all 0.5s ease-in-out;
   .search {
     position: absolute;
     top: 23%;
@@ -9,19 +16,43 @@ export const DisplayerWrapper = styled.div`
     width: 50%;
     z-index: 2;
     text-align: center;
-    h1{
-      font-size: 2.1vw;
-      color:#fff;
+    transition: all 0.5s ease-in-out;
+    h1 {
+      font-size: 2.5rem;
+      color: #fff;
       font-weight: bolder;
       margin-bottom: 1.5rem;
     }
   }
 
-  .listData {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .listData,
+  .imagesCard {
+    ${flexCenter}
     flex-wrap: wrap;
+    margin-top: 2rem;
+
+    .tags {
+      ${flexCenterSpaceBetwn}
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      width: 100%;
+      margin: 10px 20px;
+
+      span {
+        background-color: ${colors.iosBlur};
+        background-color: whitesmoke;
+        box-sizing: border-box;
+        border-radius: 12px;
+        backdrop-filter: blur(33px);
+        padding: 2px 10px;
+        color: #000;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        margin: 10px;
+        ${BoxShadow}
+      }
+    }
   }
 
   .buttons {
@@ -47,18 +78,39 @@ export const DisplayerWrapper = styled.div`
 
       &:hover {
         background: rgba(32, 232, 199, 1);
+        color: #000;
       }
     }
   }
 
-  @media screen and (max-width: 1020px) {
+  @media screen and (max-width: 1060px) {
     .search {
-      position: absolute;
-      top: 25%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       width: 65%;
+      h1 {
+        font-size: 1.5rem;
+      }
     }
   }
+  @media screen and (max-width: 440px) {
+    .search {
+      h1 {
+        font-size: 18px;
+        margin: 10px 0;
+        transition: all 0.5s ease-in-out;
+      }
+    }
 
+    .listData,
+    .imagesCard {
+      margin-top: 10px;
+      .tags {
+        margin: 0;
+        span {
+          font-size: 10px;
+          padding: 3px 10px;
+          margin: 7px;
+        }
+      }
+    }
+  }
 `;

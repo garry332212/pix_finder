@@ -1,33 +1,60 @@
 import React from "react";
 import styled from "styled-components";
 import { FcLike } from "react-icons/fc";
-import { AiFillEye } from "react-icons/ai";
-import { flexCenter } from "../modules/galobal_styles";
+import { AiFillEye, AiOutlineLoading3Quarters } from "react-icons/ai";
+import { BoxShadow, flexCenter, fontFamily } from "../modules/galobal_styles";
 
 interface imagesProps {
   imagesResults: string;
   likes: number;
   views: number;
+  viewFullSize: string;
 }
 
 const ImageDisplayer: React.FC<imagesProps> = ({
   imagesResults,
   views,
   likes,
+  viewFullSize,
 }) => {
+  const [isLoading, setLoading] = React.useState(true);
+
+  const handleImageLoad = () => {
+    setLoading(false);
+  };
+
+  const openLargeImage = () => {
+    window.open(viewFullSize);
+  };
+
   return (
     <ImageDisplayerWrapper>
       <div className="container">
-        <img src={imagesResults} alt="img" />
-        <p>
-          <FcLike /> {likes}
-        </p>
-        <p>
-          <AiFillEye /> {views}
-        </p>
-        <div className="buttonArea">
-          <button>View Full Size</button>
-        </div>
+        <img
+          src={imagesResults}
+          alt="img"
+          onLoad={handleImageLoad}
+          style={isLoading ? { display: "none" } : {}} // Hide the image until loaded
+        />
+        {isLoading && (
+          <LoadingIcon>
+            <AiOutlineLoading3Quarters />
+          </LoadingIcon>
+        )}
+        {/* Display loading text while loading */}
+        {!isLoading && ( // Display content when image is loaded
+          <>
+            <p>
+              <FcLike /> {likes}
+            </p>
+            <p>
+              <AiFillEye /> {views}
+            </p>
+            <div className="buttonArea">
+              <button onClick={openLargeImage}>View Full Size</button>
+            </div>
+          </>
+        )}
       </div>
     </ImageDisplayerWrapper>
   );
@@ -37,7 +64,7 @@ export default ImageDisplayer;
 
 const ImageDisplayerWrapper = styled.div`
   margin: 20px;
-  border: 1px solid grey;
+  border: 1px solid beige;
   border-radius: 10px;
   padding: 5px;
   .container {
@@ -45,28 +72,27 @@ const ImageDisplayerWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    width: 200px;
+    /* width: 300px; */
     border-radius: 5px;
     padding: 5px;
-    border: 1px solid grey;
-    box-shadow: 1px 1px 20px -2px grey;
+    ${BoxShadow}
 
     img {
-      height: 150px;
+      height: 250px;
       border-radius: 10px;
     }
     p {
       ${flexCenter}
       padding: 0 10px;
       border-radius: 10px;
-      background: grey;
+      ${BoxShadow}
       width: 100%;
       margin: 5px 0;
+      font-family: ${fontFamily.numbers};
     }
 
     .buttonArea {
       border-radius: 10px;
-      background-color: grey;
       width: 100%;
       display: flex;
       justify-content: center;
@@ -74,14 +100,26 @@ const ImageDisplayerWrapper = styled.div`
       button {
         margin: 10px;
         background: grey;
-        width: 80%;
-        padding: 10px;
+        padding: 10px 20px;
         background: orange;
-        font-weight: 500;
-        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-          "Lucida Sans", Arial, sans-serif;
+        font-weight: 600;
+        font-family: ${fontFamily.roboto};
         border-radius: 5px;
       }
+    }
+  }
+`;
+
+//spining loading logo
+const LoadingIcon = styled.div`
+  animation: spin infinite 1s linear;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
     }
   }
 `;

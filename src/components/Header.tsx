@@ -1,27 +1,14 @@
-import axios from "axios";
+// import axios from "axios";
 import React from "react";
 
-import { endpoint, DataProps } from "../modules/modules";
+// import { endpoint, DataProps } from "../modules/modules";
 import { HeaderWrapper } from "../styles/Header.modules";
 
-const Header = () => {
-  const [coverImg, setCoverImg] = React.useState<DataProps[]>([]);
+interface coverImage {
+  backgroundImage: string;
+}
 
-  const fetchImages = async () => {
-    const url = `${endpoint}`;
-    const response = await axios.get(url);
-    const results = response.data.hits;
-    setCoverImg(results);
-  };
-
-  React.useEffect(() => {
-    fetchImages();
-  }, []);
-
-  const randomImage = Math.floor(Math.random() * coverImg.length);
-  const backgroundImage =
-    coverImg.length > 0 ? `url(${coverImg[randomImage].largeImageURL})` : "";
-
+const Header: React.FC<coverImage> = ({ backgroundImage }) => {
   return (
     <HeaderWrapper style={{ backgroundImage }}>
       <div className="navbar">
@@ -32,6 +19,11 @@ const Header = () => {
           <p>Explore</p>
           <p>Log in</p>
         </div>
+      </div>
+
+      <div className="copyright">
+        <em>Created By Gurvinder</em>
+        <em>Version 1.0.0</em>
       </div>
     </HeaderWrapper>
   );

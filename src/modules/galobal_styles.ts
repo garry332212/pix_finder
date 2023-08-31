@@ -18,6 +18,17 @@ export const flexCenterSpaceBetwn = {
 };
 
 
+
 export const BoxShadow = {
   boxShadow: "0 10px 15px rgb(0 0 0 / 20%);",
 };
+//!Font Families
+
+export const fontFamily = {
+dosis: "'Dosis', sans-serif",
+roboto: "'Roboto', sans-serif",
+logo: "'Rubik Iso', cursive",
+numbers: "'Archivo Black', sans-serif"
+}
+
+

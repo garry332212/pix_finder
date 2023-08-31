@@ -1,6 +1,6 @@
 import React from "react";
 import { IoIosSearch } from "react-icons/io";
-import { SearchWrapper} from "../styles/SearchBar.modules";
+import { SearchWrapper } from "../styles/SearchBar.modules";
 
 interface inputTypes {
   onSearchEvent: (searchedTerm: string) => void;
@@ -15,6 +15,12 @@ const SearchBar: React.FC<inputTypes> = ({ onSearchEvent }) => {
 
     onSearchEvent(searchPic);
   };
+  const handleEnterKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      searchRequest();
+    }
+  };
+
   return (
     <SearchWrapper>
       <div className="inputArea">
@@ -23,6 +29,7 @@ const SearchBar: React.FC<inputTypes> = ({ onSearchEvent }) => {
           placeholder="Search for all images from PixFinder"
           value={searchPic}
           onChange={(e) => setSearchPic(e.target.value)}
+          onKeyDown={handleEnterKeyPress}
         />
         <IoIosSearch className="icon" onClick={searchRequest} />
       </div>
@@ -30,4 +37,3 @@ const SearchBar: React.FC<inputTypes> = ({ onSearchEvent }) => {
   );
 };
 export default SearchBar;
-
