@@ -3,10 +3,10 @@ import SearchBar from "./SearchBar";
 import ImageDisplayer from "./ImageDisplayer";
 import axios from "axios";
 import { DataProps, endpoint } from "../modules/modules";
-import styled from "styled-components";
+import {DisplayerWrapper} from "../styles/Displayer.modules"
 import Header from "./Header";
 
-const SearchAndDsiplayData = () => {
+const DisplayerComponent = () => {
   const [isImages, setImages] = React.useState<DataProps[]>([]);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [currentSearchTerm, setCurrentSearchTerm] = React.useState<string>("");
@@ -51,6 +51,7 @@ const SearchAndDsiplayData = () => {
       </div>
 
       <div className="search">
+        <h1>Stunning royalty-free images & royalty-free stock</h1>
         <SearchBar onSearchEvent={onSubmitHandler} />
       </div>
 
@@ -74,59 +75,6 @@ const SearchAndDsiplayData = () => {
   );
 };
 
-export default SearchAndDsiplayData;
+export default DisplayerComponent;
 
-const DisplayerWrapper = styled.div`
-  .search {
-    position: absolute;
-    top: 25%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50%;
-  }
 
-  .listData {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .buttons {
-    margin: 2rem 0;
-    width: 100%;
-    text-align: center;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    p {
-      font-weight: 100;
-    }
-
-    > button {
-      padding: 4px 20px;
-      background: #35066b;
-      margin: 0 10px;
-      border: none;
-      border-radius: 5px;
-      color: #fff;
-      transition: all 0.2s ease-in-out;
-
-      &:hover {
-        background: rgba(32, 232, 199, 1);
-      }
-    }
-  }
-
-  @media screen and (max-width: 1020px) {
-    .search {
-      position: absolute;
-      top: 25%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 65%;
-    }
-  }
-
-`;
