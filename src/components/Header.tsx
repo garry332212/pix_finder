@@ -1,7 +1,4 @@
-// import axios from "axios";
 import React from "react";
-
-// import { endpoint, DataProps } from "../modules/modules";
 import { HeaderWrapper } from "../styles/Header.modules";
 
 interface coverImage {
@@ -31,4 +28,4 @@ const Header: React.FC<coverImage> = ({ backgroundImage }) => {
 
 export default Header;
 
-//todo: 474px need to fix the navbar
+

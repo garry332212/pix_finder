@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { FcLike } from "react-icons/fc";
-import { AiFillEye, AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AiFillEye } from "react-icons/ai";
 import { BoxShadow, flexCenter, fontFamily } from "../modules/galobal_styles";
+import loadingIcon from "../assets/weather.gif";
 
 interface imagesProps {
   imagesResults: string;
@@ -37,12 +38,10 @@ const ImageDisplayer: React.FC<imagesProps> = ({
           style={isLoading ? { display: "none" } : {}} // Hide the image until loaded
         />
         {isLoading && (
-          <LoadingIcon>
-            <AiOutlineLoading3Quarters />
-          </LoadingIcon>
+          <img src={loadingIcon} className="loadingGif" alt="loading" />
         )}
-        {/* Display loading text while loading */}
-        {!isLoading && ( // Display content when image is loaded
+
+        {!isLoading && (
           <>
             <p>
               <FcLike /> {likes}
@@ -72,14 +71,24 @@ const ImageDisplayerWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    /* width: 300px; */
     border-radius: 5px;
     padding: 5px;
     ${BoxShadow}
+    width: 300px;
+    .loadingGif {
+      height: 100px;
+      width: 100px;
+    }
 
     img {
       height: 250px;
-      border-radius: 10px;
+      border-radius: 15px;
+      padding: 10px;
+      width: 300px;
+      transition: all.2s ease-in-out;
+      &:hover {
+        transform: scale(1.1);
+      }
     }
     p {
       ${flexCenter}
@@ -108,18 +117,21 @@ const ImageDisplayerWrapper = styled.div`
       }
     }
   }
-`;
 
-//spining loading logo
-const LoadingIcon = styled.div`
-  animation: spin infinite 1s linear;
-
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
+  @media screen and (max-width: 1060px) {
+    .container {
+      width: 200px;
     }
-    100% {
-      transform: rotate(360deg);
+  }
+  @media screen and (max-width: 506px) {
+    .container {
+      width: auto;
+
+      img {
+        width: auto;
+      }
     }
   }
 `;
+
+//spining loading logo

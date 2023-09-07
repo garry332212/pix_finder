@@ -30,6 +30,7 @@ export const DisplayerWrapper = styled.div`
     ${flexCenter}
     flex-wrap: wrap;
     margin-top: 2rem;
+   
 
     .tags {
       ${flexCenterSpaceBetwn}

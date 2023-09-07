@@ -11,7 +11,6 @@ const DisplayerComponent = () => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [currentSearchTerm, setCurrentSearchTerm] = React.useState<string>("");
 
-
   //*this function will display random images from the api by default but can conditonally search as well
   const fetchImages = async (page: number, searchTerm: string) => {
     const query = searchTerm ? `&q=${searchTerm}` : ""; // Add search term to query if provided
@@ -20,47 +19,46 @@ const DisplayerComponent = () => {
     const results = response.data.hits;
 
     setImages(results);
-    console.log(results);
   };
 
   const onSubmitHandler = async (searchedTerm: string) => {
-    fetchImages(1, searchedTerm); // Pass the search query to fetchImages and start from the first page
-    setCurrentSearchTerm(searchedTerm); // Update the current search term
+    fetchImages(1, searchedTerm);
+    setCurrentSearchTerm(searchedTerm); 
     setCurrentPage(1);
   };
 
   //search by Tags
   const handleTagClick = (tagText: string) => {
-
-    onSubmitHandler(tagText); // Perform a search when tag is clicked
+    onSubmitHandler(tagText);
   };
 
   React.useEffect(() => {
-    fetchImages(currentPage, currentSearchTerm); // Use the current search term when fetching images
+    fetchImages(currentPage, currentSearchTerm); 
   }, [currentPage, currentSearchTerm]);
 
   const nextPage = () => {
     if (currentPage < 500) {
-      fetchImages(currentPage + 1, currentSearchTerm); // Use the current search term when fetching images
+      fetchImages(currentPage + 1, currentSearchTerm);
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
 
   const prevPage = () => {
     if (currentPage > 1) {
-      fetchImages(currentPage - 1, currentSearchTerm); // Use the current search term when fetching images
+      fetchImages(currentPage - 1, currentSearchTerm); 
       setCurrentPage((prevPage) => prevPage - 1);
     }
   };
 
   //randomly change images for the cover based on tags and search
   const randomImage = Math.floor(Math.random() * isImages.length);
-  const backgroundImage = isImages.length > 0 ? `url(${isImages[randomImage].largeImageURL})` : "";
-  
+  const backgroundImage =
+    isImages.length > 0 ? `url(${isImages[randomImage].largeImageURL})` : "";
+
   return (
     <DisplayerWrapper>
       <div className="header">
-        <Header backgroundImage={backgroundImage}/>
+        <Header backgroundImage={backgroundImage} />
       </div>
 
       <div className="search">
@@ -80,7 +78,7 @@ const DisplayerComponent = () => {
         <div className="imagesCard">
           {isImages.map((pics, index) => (
             <ImageDisplayer
-              key={`${pics.id}_${currentPage}_${index}`} // Using a unique key
+              key={`${pics.id}_${currentPage}_${index}`}
               imagesResults={pics.largeImageURL}
               likes={pics.likes}
               views={pics.views}
