@@ -23,7 +23,7 @@ const DisplayerComponent = () => {
 
   const onSubmitHandler = async (searchedTerm: string) => {
     fetchImages(1, searchedTerm);
-    setCurrentSearchTerm(searchedTerm); 
+    setCurrentSearchTerm(searchedTerm);
     setCurrentPage(1);
   };
 
@@ -33,7 +33,7 @@ const DisplayerComponent = () => {
   };
 
   React.useEffect(() => {
-    fetchImages(currentPage, currentSearchTerm); 
+    fetchImages(currentPage, currentSearchTerm);
   }, [currentPage, currentSearchTerm]);
 
   const nextPage = () => {
@@ -45,7 +45,7 @@ const DisplayerComponent = () => {
 
   const prevPage = () => {
     if (currentPage > 1) {
-      fetchImages(currentPage - 1, currentSearchTerm); 
+      fetchImages(currentPage - 1, currentSearchTerm);
       setCurrentPage((prevPage) => prevPage - 1);
     }
   };
@@ -82,16 +82,20 @@ const DisplayerComponent = () => {
               imagesResults={pics.largeImageURL}
               likes={pics.likes}
               views={pics.views}
+              comments={pics.comments}
               viewFullSize={pics.largeImageURL}
             />
           ))}
         </div>
 
-        <div className="buttons">
-          <button onClick={nextPage}>Next</button>
-          <p>Page | {currentPage}</p>
-          {currentPage > 1 && <button onClick={prevPage}>Prev</button>}
-        </div>
+        {isImages.length > 0 &&
+        (
+          <div className="buttons">
+            <button onClick={nextPage}>Next</button>
+            <p>Page | {currentPage}</p>
+            {currentPage > 1 && <button onClick={prevPage}>Prev</button>}
+          </div>
+        )}
       </div>
     </DisplayerWrapper>
   );

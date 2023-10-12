@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FcLike } from "react-icons/fc";
 import { AiFillEye } from "react-icons/ai";
+import { FcComments } from "react-icons/fc";
 import { BoxShadow, flexCenter, fontFamily } from "../modules/galobal_styles";
 import loadingIcon from "../assets/weather.gif";
 
@@ -9,6 +10,7 @@ interface imagesProps {
   imagesResults: string;
   likes: number;
   views: number;
+  comments: number;
   viewFullSize: string;
 }
 
@@ -16,6 +18,7 @@ const ImageDisplayer: React.FC<imagesProps> = ({
   imagesResults,
   views,
   likes,
+  comments,
   viewFullSize,
 }) => {
   const [isLoading, setLoading] = React.useState(true);
@@ -44,11 +47,15 @@ const ImageDisplayer: React.FC<imagesProps> = ({
         {!isLoading && (
           <>
             <p>
-              <FcLike /> {likes}
+              <FcComments className="iconNum" /> {comments}
             </p>
             <p>
-              <AiFillEye /> {views}
+              <FcLike className="iconNum" /> {likes}
             </p>
+            <p>
+              <AiFillEye className="iconNum" /> {views}
+            </p>
+
             <div className="buttonArea">
               <button onClick={openLargeImage}>View Full Size</button>
             </div>
@@ -97,7 +104,11 @@ const ImageDisplayerWrapper = styled.div`
       ${BoxShadow}
       width: 100%;
       margin: 5px 0;
-      font-family: ${fontFamily.numbers};
+      font-family: ${fontFamily.roboto};
+    }
+
+    .iconNum {
+      margin-right: 10px;
     }
 
     .buttonArea {
@@ -123,7 +134,7 @@ const ImageDisplayerWrapper = styled.div`
       width: 200px;
     }
   }
-  @media screen and (max-width: 506px) {
+  @media screen and (max-width: 520px) {
     .container {
       width: auto;
 
@@ -133,5 +144,3 @@ const ImageDisplayerWrapper = styled.div`
     }
   }
 `;
-
-//spining loading logo

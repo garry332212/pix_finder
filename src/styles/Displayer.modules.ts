@@ -30,7 +30,6 @@ export const DisplayerWrapper = styled.div`
     ${flexCenter}
     flex-wrap: wrap;
     margin-top: 2rem;
-   
 
     .tags {
       ${flexCenterSpaceBetwn}
@@ -52,6 +51,11 @@ export const DisplayerWrapper = styled.div`
         border: none;
         margin: 10px;
         ${BoxShadow}
+        transition: all .1s ease-in-out;
+      }
+      & :hover {
+        color: red;
+        transform: scale(1.1);
       }
     }
   }
@@ -70,7 +74,7 @@ export const DisplayerWrapper = styled.div`
 
     > button {
       padding: 4px 20px;
-      background: #35066b;
+      background: rgba(0, 0, 0, .6);
       margin: 0 10px;
       border: none;
       border-radius: 5px;

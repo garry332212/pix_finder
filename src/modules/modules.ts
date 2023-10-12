@@ -6,6 +6,7 @@ export interface DataProps {
   downloads: number;
   likes: number;
   views: number;
+  comments: number;
   largeImageURL: string; 
   previewURL: string;
 }
