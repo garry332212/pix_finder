@@ -1,4 +1,4 @@
-export const api_key = "27219150-23726d1ef8a1ddf67f8bc0b31";
+export const api_key = process.env.REACT_APP_API_KEY;
 export const endpoint = `https://pixabay.com/api/?key=${api_key}`;
 
 export interface DataProps {
@@ -7,7 +7,7 @@ export interface DataProps {
   likes: number;
   views: number;
   comments: number;
-  largeImageURL: string; 
+  largeImageURL: string;
   previewURL: string;
 }
 
